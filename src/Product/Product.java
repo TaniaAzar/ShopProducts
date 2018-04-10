@@ -1,6 +1,6 @@
 package Product;
 
-public abstract class Product{
+public abstract class Product implements Comparable<Product> {
 
     private String name;
     private String model;
@@ -39,6 +39,11 @@ public abstract class Product{
         if (price != product.price) return false;
         if (!name.equals(product.name)) return false;
         return model.equals(product.model);
+    }
+
+    @Override
+    public int compareTo(Product o){
+        return this.getName().compareTo(o.getName());
     }
 
     @Override

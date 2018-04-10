@@ -1,9 +1,10 @@
 import Product.*;
-import java.util.Scanner;
 
-public class Menu<T> {
+import java.util.*;
 
-    private ListProducts<T> listProducts = new ListProducts<T>();
+public class Menu<T extends Comparable<T>> {
+
+    private ProductRepository<T> repository = new ProductRepository<T>();
     private ProductFactory<T> factory = new ProductFactory<T>();
 
     Scanner scanner = new Scanner(System.in);
@@ -15,42 +16,54 @@ public class Menu<T> {
             item = Integer.valueOf(scanner.next());
             switch (item){
                 case 1: {
-                    listProducts.getList().add((T) factory.addElement());
+                    repository.getList().add((T) factory.addElement());
                     break;
                 }
                 case 2:{
-                    if (listProducts.getList().isEmpty()){
+                    if (repository.getList().isEmpty()){
                         System.out.println("Товаров в базе нет");
                     }else {
                         System.out.println("Выберите товар для изменения:");
-                        listProducts.printListProduct();
+                        repository.printListProduct();
                         int i = Integer.valueOf(scanner.next());
-                        factory.updateElement((Product)listProducts.getList().get(i-1));
+                        factory.updateElement((Product)repository.getList().get(i-1));
                         System.out.println("Товар изменен");
                     }
                     break;
                 }
                 case 3:{
-                    if (listProducts.getList().isEmpty()){
+                    if (repository.getList().isEmpty()){
                         System.out.println("Товаров в базе нет");
                     }else {
                         System.out.println("Выберите товар для удаления:");
-                        listProducts.printListProduct();
+                        repository.printListProduct();
                         int i = Integer.valueOf(scanner.next());
-                        listProducts.getList().remove(listProducts.getList().get(i-1));
+                        repository.getList().remove(repository.getList().get(i-1));
                         System.out.println("Товар удален");
                     }break;
                 }
                 case 4:{
-                    if (listProducts.getList().isEmpty()){
+                    if (repository.getList().isEmpty()){
                         System.out.println("Товаров в базе нет");
                     }else {
-                        listProducts.printListProduct();
+                        repository.printListProduct();
                     }
                     break;
                 }
                 case 5:{
-
+                    if (repository.getList().isEmpty()){
+                        System.out.println("Товаров в базе нет");
+                    }else {
+                        repository.toSortListProduct();
+                    }
+                    break;
+                }
+                case 6:{
+                    if (repository.getList().isEmpty()){
+                        System.out.println("Товаров в базе нет");
+                    }else {
+                        repository.theAverageCostOfGoods();
+                    }
                     break;
                 }
             }
@@ -63,8 +76,10 @@ public class Menu<T> {
                 "2 - update element\n" +
                 "3 - delete element\n" +
                 "4 - print all\n" +
-                "5 - save to file\n" +
-                "6 - load from file\n" +
+                "5 - to sort by a name\n" +
+                "6 - to learn the average cost of goods\n" +
+                "7 - save to file\n" +
+                "8 - load from file\n" +
                 "0 - exit");
     }
 }

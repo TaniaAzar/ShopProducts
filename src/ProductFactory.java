@@ -1,7 +1,9 @@
 import Product.*;
+
+import java.util.List;
 import java.util.Scanner;
 
-public class ProductFactory<T> implements ListMenu{
+public class ProductFactory<T> implements ListMenu<T>{
 
     private Scanner scanner = new Scanner(System.in);
 
